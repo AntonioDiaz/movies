@@ -18,6 +18,7 @@ android {
         }
     }
     buildTypes.each {
+
         it.buildConfigField("String", "MOVIES_API_KEY", "\"xxxx\"")
     }
 }
