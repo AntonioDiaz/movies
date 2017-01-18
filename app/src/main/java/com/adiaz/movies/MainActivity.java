@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Lis
 
 	@Override
 	public void onListItemClick(MovieEntity movie) {
-		Toast.makeText(this, "item " + movie.getTitle(), Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, DetailsActivity.class);
 		intent.putExtra(INTENT_MOVIE_DETAILS, movie);
 		startActivity(intent);
