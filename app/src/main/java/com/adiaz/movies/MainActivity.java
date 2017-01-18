@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.adiaz.movies.utilities.DetailsActivity;
 import com.adiaz.movies.utilities.InternetUtilities;
 import com.adiaz.movies.utilities.JSonUtilities;
 
@@ -27,7 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoviesAdapter.ListItemClickListener {
 	public static final String TAG = MainActivity.class.getSimpleName();
 	/* public static final String THEMOVIEDB_URL = "popular?api_key="; */
 	public static final String THEMOVIEDB_URL_POPULARITY = "http://api.themoviedb.org/3/movie/popular";
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 	public static final String IMAGE_URL = "http://image.tmdb.org/t/p/w185/";
 	public static final String PARAM_API_KEY = "api_key";
 	public static final String PARAM_API_PAGE = "page";
+	public static final String INTENT_MOVIE_DETAILS = "INTENT_MOVIE_DETAILS";
 
 	private Context mContext;
 	private MoviesAdapter mMoviesAdapter;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 		mContext = this;
 		mPage = 1;
 		mProgressBarMovies = (ProgressBar)findViewById(R.id.pb_loading_indicator);
-		mMoviesAdapter = new MoviesAdapter();
+		mMoviesAdapter = new MoviesAdapter(this);
 
 		mGridLayoutManager = new GridLayoutManager(this, getResources().getInteger(R.integer.grid_columns));
 		mRecyclerViewMovies = (RecyclerView)findViewById(R.id.rv_movies);
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 		Log.d(TAG, "mSortPopularity " + mSortPopularity);
 		if (mSortPopularity != newCriteria) {
 			mPage = 1;
-			mMoviesAdapter = new MoviesAdapter();
+			mMoviesAdapter = new MoviesAdapter(this);
 			mRecyclerViewMovies.setAdapter(mMoviesAdapter);
 			refreshMovies();
 		}
@@ -188,5 +190,13 @@ public class MainActivity extends AppCompatActivity {
 				hideLoadingBar();
 			}
 		}
+	}
+
+	@Override
+	public void onListItemClick(MovieEntity movie) {
+		Toast.makeText(this, "item " + movie.getTitle(), Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(this, DetailsActivity.class);
+		intent.putExtra(INTENT_MOVIE_DETAILS, movie);
+		startActivity(intent);
 	}
 }

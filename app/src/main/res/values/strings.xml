@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">&#160;&#160;Movies</string>
+    <string name="app_name_spaces">&#160;&#160;&#160;Movies</string>
+    <string name="app_name">Movies</string>
     <string name="action_settings">settings</string>
     <string name="error_loading_movies">Error on loading movies</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!--Details Activity -->
+    <string name="detail_title">Title</string>
+    <string name="detail_release">Release date</string>
+    <string name="detail_vote">Vote average</string>
+    <string name="detail_plot">Plot synopsis</string>
 
     <!-- Strings related to Settings -->
     <string name="pref_sort_key">PREF_SHORT_KEY</string>

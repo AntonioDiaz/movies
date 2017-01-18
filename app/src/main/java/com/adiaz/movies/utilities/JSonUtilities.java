@@ -20,10 +20,18 @@ public class JSonUtilities {
 		for (int i = 0; i < results.length(); i++) {
 			String strTitle = results.getJSONObject(i).getString("title");
 			String pathPoster = results.getJSONObject(i).getString("poster_path");
+			String plot = results.getJSONObject(i).getString("overview");
+			String releaseDate = results.getJSONObject(i).getString("release_date");
+			String voteAverage = results.getJSONObject(i).getString("vote_average");
+
 			MovieEntity movieEntity = new MovieEntity();
 			movieEntity.setTitle(strTitle);
 			movieEntity.setPosterPath(pathPoster);
+			movieEntity.setReleaseDate(releaseDate);
+			movieEntity.setPlot(plot);
+			movieEntity.setVoteAverage(voteAverage);
 			movies.add(movieEntity);
+
 		}
 		return movies;
 	}
