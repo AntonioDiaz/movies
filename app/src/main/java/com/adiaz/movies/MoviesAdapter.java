@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
 	private static final String TAG = MoviesAdapter.class.getSimpleName();
 	private List<MovieEntity> mMoviesList;
+	private Context mContext;
+	private int mWidth;
+	private int mHeight;
 
 	public MoviesAdapter () {
 		mMoviesList = new ArrayList<>();
@@ -23,8 +28,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 
 	@Override
 	public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		Context context = parent.getContext();
-		LayoutInflater layoutInflater = LayoutInflater.from(context);
+		mContext = parent.getContext();
+		mWidth = parent.getWidth();
+		mHeight = parent.getHeight();
+		LayoutInflater layoutInflater = LayoutInflater.from(mContext);
 		View viewInflated = layoutInflater.inflate(R.layout.movies_list_item, parent, false);
 		MoviesViewHolder moviesViewHolder = new MoviesViewHolder(viewInflated);
 		return moviesViewHolder;
@@ -34,7 +41,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 	public void onBindViewHolder(MoviesViewHolder holder, int position) {
 		if (mMoviesList!=null && position<mMoviesList.size()) {
 			MovieEntity movieEntity = mMoviesList.get(position);
-			holder.tvTitle.setText(movieEntity.getTitle());
+			ImageView imageView = holder.ivMovie;
+			String urlImage = MainActivity.IMAGE_URL + movieEntity.getPosterPath();
+			Picasso.with(mContext)
+					.load(urlImage)
+					.error(R.drawable.ic_error_black_24dp)
+					.resize(400, 600)
+					.centerInside()
+					.into(imageView);
 		}
 	}
 
@@ -58,12 +72,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
 	}
 
 	class MoviesViewHolder extends RecyclerView.ViewHolder {
-
-		TextView tvTitle;
-
+		ImageView ivMovie;
 		public MoviesViewHolder(View view) {
 			super(view);
-			tvTitle = (TextView)view.findViewById(R.id.tv_movie_title);
+			ivMovie = (ImageView)view.findViewById(R.id.iv_movie);
 		}
 	}
 }

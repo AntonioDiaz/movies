@@ -1,7 +1,5 @@
 package com.adiaz.movies.utilities;
 
-/* Created by toni on 16/01/2017. */
-
 import com.adiaz.movies.MovieEntity;
 
 import org.json.JSONArray;
@@ -21,8 +19,10 @@ public class JSonUtilities {
 		JSONArray results = jsonMoviesObj.getJSONArray("results");
 		for (int i = 0; i < results.length(); i++) {
 			String strTitle = results.getJSONObject(i).getString("title");
+			String pathPoster = results.getJSONObject(i).getString("poster_path");
 			MovieEntity movieEntity = new MovieEntity();
 			movieEntity.setTitle(strTitle);
+			movieEntity.setPosterPath(pathPoster);
 			movies.add(movieEntity);
 		}
 		return movies;

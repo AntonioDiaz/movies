@@ -5,6 +5,15 @@ package com.adiaz.movies;
 public class MovieEntity {
 
 	private String title;
+	private String posterPath;
+
+	public String getPosterPath() {
+		return posterPath;
+	}
+
+	public void setPosterPath(String posterPath) {
+		this.posterPath = posterPath;
+	}
 
 	public String getTitle() {
 		return title;
