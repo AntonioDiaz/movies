@@ -20,7 +20,6 @@ public class DetailsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		MovieEntity movie = getIntent().getParcelableExtra(MainActivity.INTENT_MOVIE_DETAILS);
-		Log.d(TAG, movie.getTitle());
 		TextView tvTitle = (TextView)findViewById(R.id.tv_title);
 		tvTitle.setText(movie.getTitle());
 		TextView tvRelease = (TextView)findViewById(R.id.tv_release);
